@@ -1,0 +1,41 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "airbnb-typescript",
+        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/recommended"
+    ],
+    "env": {
+        "jest": true
+    },
+    "rules": {
+        // Disable prefer default export
+        "import/prefer-default-export": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+        "react/jsx-filename-extension": [0],
+        // since redux-slice changes state directly
+        "no-param-reassign": [
+            "error",
+            {
+                "props": true,
+                "ignorePropertyModificationsFor": ["state"]
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    }
+}

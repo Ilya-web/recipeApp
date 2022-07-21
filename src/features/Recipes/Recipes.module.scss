@@ -1,0 +1,135 @@
+@import "src/styles/variables";
+@import "src/styles/mixin";
+
+
+@mixin resetUl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1170px;
+  padding: 40px 15px;
+  margin: auto;
+}
+
+.main {
+  display: flex;
+  gap: 0 20px;
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.recipesNav {
+  @include styleBox;
+  overflow: hidden;
+  padding: 15px 0;
+  flex: 0 0 300px;
+  @media screen and (max-width: 768px) {
+    flex: 0 0 100%;
+  }
+  ul {
+    @include resetUl;
+      @media screen and (max-width: 768px) {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+    li {
+      &.addRecipe {
+        padding: 10px 20px;
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
+      }
+      &:not(.addRecipe) {
+      padding: 10px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      transition: $transition;
+        @media screen and (max-width: 768px) {
+          text-overflow: initial;
+          overflow: initial;
+          padding: 5px 15px;
+        }
+
+      &.active {
+        background: $color-assets;
+        color: $color-white;
+      }
+      @media (hover){
+        &:hover {
+          background: $color-assets;
+          color: $color-white;
+        }
+      }
+
+      &:active {
+        background: $color-assets-active;
+
+      }
+    }
+    }
+  }
+
+  :global {
+    .ant-btn {
+      width: 100%;
+    }
+  }
+}
+
+.recipesDateTitle {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.addRecipeMobile {
+  display: none;
+  padding: 10px 15px 0;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}
+
+.recipesDesc {
+  padding: 20px;
+  @include styleBox;
+  position: relative;
+  width: calc(100% - 300px);
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    ul {
+      padding-left: 30px;
+    }
+  }
+
+  &Buttons {
+    display: flex;
+    gap:0 15px
+  }
+
+  &Row {
+    margin-bottom: 40px;
+  }
+
+  &Title {
+    font-size: 25px;
+    margin-bottom: 10px;
+    @media screen and (max-width: 768px) {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.wrapSearch {
+  margin-bottom: 20px;
+}
