@@ -12,7 +12,8 @@ type TModalCustom = {
   modalIsOpen: boolean;
   onClose: () => void;
   recipe?: TRecipe;
-  fetchRecipe: (recipe: TRecipe) => void;
+  fetchRecipe: () => void;
+  scrollToLeft: () => void;
 };
 
 const required = [{ required: true, message: 'Is required' }];
@@ -22,6 +23,7 @@ export const ModalCustom: React.FC<TModalCustom> = ({
   onClose,
   recipe,
   fetchRecipe,
+  scrollToLeft,
 }: TModalCustom) => {
   const [form] = Form.useForm();
 
@@ -53,8 +55,6 @@ export const ModalCustom: React.FC<TModalCustom> = ({
         directions: values.directions,
       })
         .then(() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           fetchRecipe();
           onClose();
           message.success('Updated recipe');
@@ -72,10 +72,9 @@ export const ModalCustom: React.FC<TModalCustom> = ({
         directions: values.directions,
       })
         .then(() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           fetchRecipe();
           onClose();
+          scrollToLeft();
           message.success('Added new recipe');
         })
         .catch((error) => {

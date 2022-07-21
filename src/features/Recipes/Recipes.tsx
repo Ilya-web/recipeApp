@@ -1,15 +1,15 @@
-import React, { ChangeEvent, useCallback, useEffect, useState, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState, useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { Button, Input, Spin, message } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import debounce from 'lodash.debounce';
+import { get, query, ref, remove } from 'firebase/database';
 
 import { TRecipe } from 'types/recipes';
 import { ModalCustom } from 'components/ModalCustom';
 
-import styles from './Recipes.module.scss';
-import { get, query, ref, remove } from 'firebase/database';
 import { db } from 'utils/firebase-config';
+import styles from './Recipes.module.scss';
 
 export const Recipes: React.FC = () => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -18,6 +18,9 @@ export const Recipes: React.FC = () => {
   const [isNewRecipe, setIsNewRecipe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+
+  const menu = useRef<HTMLUListElement | null>(null);
+  const recipeData = useRef<TRecipe[]>([]);
 
   const fetchRecipe = useCallback(() => {
     setIsLoading(true);
@@ -30,6 +33,7 @@ export const Recipes: React.FC = () => {
           return b.date - a.date;
         });
         setRecipes(sortData);
+        recipeData.current = sortData;
         setSelectedRecipe(undefined);
       })
       .catch((error) => {
@@ -54,19 +58,18 @@ export const Recipes: React.FC = () => {
   const onSearch = useMemo(
     () =>
       debounce((event: ChangeEvent<HTMLInputElement>) => {
-        let filterArr = recipes;
         const value = event.target.value.toLowerCase();
         if (value) {
-          filterArr = recipes.filter((item) =>
+          const filterRecipes = recipeData.current.filter((item) =>
             item.ingredients.join('').toLowerCase().includes(value),
           );
-          setRecipes(filterArr);
+          setRecipes(filterRecipes);
           setSelectedRecipe(undefined);
         } else {
           fetchRecipe();
         }
       }, 400),
-    [fetchRecipe, recipes],
+    [fetchRecipe],
   );
 
   const handleOpenModal = () => {
@@ -105,6 +108,13 @@ export const Recipes: React.FC = () => {
     }
   };
 
+  const scrollToLeft = useCallback(() => {
+    menu.current?.scrollTo({
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
   const addNewRecipe = () => {
     setIsNewRecipe(true);
     setIsVisibleModal(true);
@@ -124,7 +134,7 @@ export const Recipes: React.FC = () => {
         <div className={styles.main}>
           <div className={styles.recipesNav}>
             <Spin spinning={isLoading}>
-              <ul>
+              <ul ref={menu}>
                 {recipes &&
                   recipes.map((item) => {
                     return (
@@ -156,10 +166,6 @@ export const Recipes: React.FC = () => {
           {!!recipes.length && (
             <div className={styles.recipesDesc}>
               <div className={styles.recipesDescRow}>
-                <span className={styles.recipesDateTitle}>Changed recipe on: </span>
-                {selectedRecipe?.date && new Date(selectedRecipe?.date).toString()}
-              </div>
-              <div className={styles.recipesDescRow}>
                 <div className={styles.recipesDescTitle}>Ingredients:</div>
                 <ul>
                   {selectedRecipe &&
@@ -185,6 +191,10 @@ export const Recipes: React.FC = () => {
                   Delete
                 </Button>
               </div>
+              <div className={styles.recipesDate}>
+                <span className={styles.recipesDateTitle}>Changed recipe on: </span>
+                {selectedRecipe?.date && new Date(selectedRecipe?.date).toLocaleString()}
+              </div>
             </div>
           )}
         </div>
@@ -194,6 +204,7 @@ export const Recipes: React.FC = () => {
         onClose={handleCloseModal}
         recipe={isNewRecipe ? undefined : selectedRecipe}
         fetchRecipe={fetchRecipe}
+        scrollToLeft={scrollToLeft}
       />
     </Spin>
   );
