@@ -1,6 +1,4 @@
 
-In order to raise the project to localhost, you need to replace the constant with [http://localhost:4001](http://localhost:4001) in the utils/constants.ts
-
 ## Available Scripts
 
 In the project directory, you can run:
