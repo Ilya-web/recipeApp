@@ -1,38 +1,40 @@
+Objective: Build a beautiful designed React app that is functionally similar to this https://codepen.io/freeCodeCamp/full/dNVazZ/ 
+Fulfill the below user stories. Use whichever libraries or APIs you need. Give it your own personal style. We look for a great design, not only for a clean code. 
 
-## Available Scripts
+Related to the design we are expecting, take a look at these:
+https://themeforest.net/item/foodish-food-recipes-mobile-app-figma-template/28210146
+https://themeforest.net/item/ombe-coffee-shop-mobile-app-template/32603698
+https://themeforest.net/item/localfood-psd-template-find-order-food-app/37218749
+https://themeforest.net/item/roka-recipes-and-food-plan-app-ui-kit/23662194
 
-In the project directory, you can run:
 
-### `npm start`
+User Story: I can create recipes that have names and ingredients.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+User Story: I can see an index view where the names of all the recipes are visible.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User Story: I can click on any of those recipes to view them.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+User Story: I can edit these recipes.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+User Story: I can delete these recipes.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+User Story: All new recipes I add are saved in my browser's local storage. If I refresh the page, these recipes will still be there.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+User Story: I can search for one or more ingredients and display all the recipes that contain these ingredients.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- You are free to use any backend simulation framework or mock your backend calls.
+- If you feel wild enough you can build your custom backend that will bring you extra points.
+
+
+When you are finished, include a link to your deployed project on any platform (AWS, Digital Ocean, Heroku, Netlify, CodePen) and send us an email with the "I've completed this challenge".
+
+
+Please also document the steps to set up the development and add a new feature to your application.
+
